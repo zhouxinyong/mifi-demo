@@ -43,7 +43,9 @@ export default {
       this.RecordRTC = RecordRTC(stream, { type: 'audio' })
       return stream
     },
-    onUserMediaError () {},
+    onUserMediaError (e) {
+      alert('未取得录音权限')
+    },
     startRecord () {
       if (audio) {
         document.getElementById('audio').removeChild(audio)
@@ -60,7 +62,7 @@ export default {
     },
     stopRecord () {
       this.recording = false
-      this.RecordRTC.stopRecording((data) => {
+      this.RecordRTC && this.RecordRTC.stopRecording((data) => {
         const blob = this.RecordRTC.getBlob()
         this.voiceData(blob)
       })
